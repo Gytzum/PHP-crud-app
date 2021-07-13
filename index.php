@@ -1,6 +1,6 @@
 <?php
 include_once('database-connection.php');
-// include_once('functions.php');
+// include('delete.php');
 ?>
 
 <!DOCTYPE html>
@@ -15,56 +15,74 @@ include_once('database-connection.php');
 
     <title>CRUD App</title>
 </head>
-<?php
-$title = $_GET['path'];
-print($title);
-if ($title == 'employees') {
-    $content = "
-            SELECT employees.id, name, group_concat(' ', project_name) as project FROM projects
-                JOIN employees
-                    ON employees.id = projects.employee_id
-            GROUP BY employees.id;";
-} else {
-    $content = "
-            SELECT projects.id, project_name as 'Project Name', group_concat(' ', employees.name) as name FROM employees
-                JOIN projects
-                    ON projects.id = employees.id
-            GROUP BY projects.id;";
-}
-
-?>
 
 <body>
-    <div class="container">
+    <div class="container-fluid" style="width:80%">
         <header>
             <h2>CRUD Application</h2>
             <nav>
-                <ul class="nav-links">
+                <ul>
                     <li><a href="?path=employees">Employees</a></li>
                     <li><a href="?path=projects">Projects</a></li>
                 </ul>
             </nav>
         </header>
-
-
-            <table class="table table-dark">
-            <thead>
+        <table class="table table-bordered">
+            <thead class="table-dark ">
                 <tr>
-                    <td>ID</td>
-                    <td>Employee</td>
-                    <td>Project</td>
-                    <td>Actions</td>
+                    <td style="width:10%">#</td>
+                    <td style="width:25%">Employee</td>
+                    <td style="width:35%">Project</td>
+                    <td style="width:40%">Actions</td>
                 </tr>
             </thead>
-            <tbody>
+            <?php
+            $title = $_GET['path'];
+            if ($title == '' || $title == 'employees') {
+                $stmt = $conn->prepare("SELECT id, name from employees WHERE id LIKE ?");
+                $stmt->bind_param("s", $a = "%%");
+                $stmt->execute();
+                $stmt->bind_result($id, $name);
+                $project = '';
+            } else {
+                $query = "SELECT projects.id as id , projects.name as project, group_concat(' ', employees.name) as name 
+                    FROM projects
+                    LEFT JOIN employees
+                        ON projects.id = employees.Project_id
+                        WHERE projects.name LIKE ? 
+                        GROUP BY projects.id
+                    ORDER BY name DESC";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("s", $a = "%%");
+                $stmt->execute();
+                $stmt->bind_result($id, $project, $name);
+            }
+            
+            while ($stmt->fetch()) {
+                $count = $count + 1;
+                echo "<tbody>";
+                echo ('
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>' . $id . '</td>
+                    <td>' . $name . '</td>
+                    <td>' . $project . '</td>
+                    <td>
+                        <form action="" method="post">                       
+                        <input type = "hidden" name="id" value=' . $id . ' hidden >
+                            <a class= "btn" href="?action=edit&id='  . $id . '">Edit</a>
+                            <a class = "btn" href="?action=delete&id='  . $id . '">Delete</a>
+                        </form>
+                    </td>
                 </tr>
-            </tbody>
-        </table>;
+            ');
+                echo "</tbody>";
+            }
+
+        
+            $stmt->close();
+            mysqli_close($conn);
+            ?>
+        </table>
     </div>
 
 </body>

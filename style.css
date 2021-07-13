@@ -36,13 +36,31 @@ ul > li > a {
 h2{
     display: inline-block;
     float: right;
-    font-size: 50px;
     padding: 20px;
+    padding-top: 40px;
     margin-right: 50px;
 }
-.container-fluid{
+.table {
     margin-top: 50px;
     font-size: 25px;
+}
+.container{
+    font-size: 25px;
     width: 80%;
+}
 
+.btn{
+   padding: 10px 20px;
+}
+
+.btn:first-child{
+    background-color: #208a2e;
+    color: #fff
+}
+.btn:last-child{
+    background-color: #e40303;
+    color: #fff
+}
+.btn:hover{
+    transform: translateY(-3px);
 }
