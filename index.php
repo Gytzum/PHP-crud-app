@@ -1,6 +1,6 @@
 <?php
 include_once('database-connection.php');
-// include('delete.php');
+ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -57,33 +57,38 @@ include_once('database-connection.php');
                 $stmt->execute();
                 $stmt->bind_result($id, $project, $name);
             }
-            
+
             while ($stmt->fetch()) {
                 $count = $count + 1;
                 echo "<tbody>";
                 echo ('
                 <tr>
-                    <td>' . $id . '</td>
+                    <td>' . $count . '</td>
                     <td>' . $name . '</td>
                     <td>' . $project . '</td>
                     <td>
                         <form action="" method="post">                       
                         <input type = "hidden" name="id" value=' . $id . ' hidden >
-                            <a class= "btn" href="?action=edit&id='  . $id . '">Edit</a>
-                            <a class = "btn" href="?action=delete&id='  . $id . '">Delete</a>
+                            <a class= "btn" href="?action=edit&id='  . $id . '&path='.$_GET['path'].'">Edit</a>
+                            <a class = "btn" href="?action=delete&id='  . $id . '&path='.$_GET['path'].'">Delete</a>
                         </form>
                     </td>
                 </tr>
             ');
                 echo "</tbody>";
             }
-
-        
-            $stmt->close();
-            mysqli_close($conn);
             ?>
         </table>
     </div>
+    <?php
+    if (isset($_GET['action']) and $_GET['action'] === 'delete') {
+        require 'delete.php';
+    }
+    if (isset($_GET['action']) and $_GET['action'] === 'edit') {
+        require 'edit.php';
+    }
+
+    ?>
 
 </body>
 
