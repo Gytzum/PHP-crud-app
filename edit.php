@@ -31,22 +31,22 @@ ob_start();
             <button class="btn-dark" style="cursor: pointer; width:200px; height:50px;" class= "edit-btn" type="submit">Submit</button>
         </form>';
     }
-    if($path !== 'projects'){
+    if ($path !== 'projects') {
         $stmt = $conn->prepare("SELECT name FROM crud_app.projects");
         $res = $stmt->execute();
         $stmt->bind_result($option);
 
-        echo'
+        echo '
             <form action="" method = "post">
                 <label style = "font-size:25px; margin-left: 11%; margin-top: 30px" for="assign">Choose project to assign employee</label></br>
                     <select style="margin-left: 11%; width:300px; height:50px" name="assign">';
-                    while ($stmt->fetch()) {
-                        echo '<option  value="' . $option . '">' . $option . '</option>';
-                    }
-                    echo '</select>';
-                echo '<button class="btn-dark" style="cursor: pointer; width:200px; height:50px;" class= "edit-btn" type="submit">Assign</button>';
+        while ($stmt->fetch()) {
+            echo '<option  value="' . $option . '">' . $option . '</option>';
+        }
+        echo '</select>';
+        echo '<button class="btn-dark" style="cursor: pointer; width:200px; height:50px;" class= "edit-btn" type="submit">Assign</button>';
     }
-            echo' </form>';
+    echo ' </form>';
     ?>
 
     <?php
@@ -61,20 +61,26 @@ ob_start();
         header('Location: ' . $_SERVER['HTTP_REFERER'], '?');
     }
 
-    if (isset($_POST['assign'])){
-        
-        $query = 'INSERT INTO crud_app.employees (Project_id) values(?)';
+    if (isset($_POST['assign'])) {
+        $getProjectId = 'SELECT id FROM crud_app.projects WHERE name = ?';
+        $stmt = $conn->prepare($getProjectId);
+        $stmt->bind_param('s', $_POST['assign']);
+        $res = $stmt->execute();
+        $stmt->bind_result($projectId);
+        while ($stmt->fetch()) $finalId = $projectId;
+
+        echo $_GET['id'];
+        $query = 'UPDATE crud_app.employees SET Project_id = ' . $finalId . ' WHERE id = ' . $_GET['id'] . '';
+
         $stmt = $conn->prepare($query);
         $stmt->bind_param('i', $_GET['id']);
         $res = $stmt->execute();
 
         $stmt->close();
         mysqli_close($conn);
-        // header('Location: ' . $_SERVER['HTTP_REFERER'], '?');
+        header('Location: ' . $_SERVER['HTTP_REFERER'], '?');
     }
     ?>
-
 </body>
 
 </html>
-
