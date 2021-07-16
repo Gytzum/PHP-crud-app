@@ -31,8 +31,8 @@ ob_start();
             <thead class="table-dark ">
                 <tr>
                     <td style="width:10%">#</td>
-                    <td style="width:25%">Employee</td>
-                    <td style="width:35%">Project</td>
+                    <td style="width:25%">Employees</td>
+                    <td style="width:35%">Projects</td>
                     <td style="width:40%">Actions</td>
                 </tr>
             </thead>
