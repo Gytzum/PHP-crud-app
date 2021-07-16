@@ -50,8 +50,7 @@ ob_start();
                     LEFT JOIN employees
                         ON projects.id = employees.Project_id
                         WHERE projects.name LIKE ? 
-                        GROUP BY projects.id
-                    ORDER BY name DESC";
+                        GROUP BY projects.id";
                 $stmt = $conn->prepare($query);
                 $stmt->bind_param("s", $a = "%%");
                 $stmt->execute();
@@ -68,9 +67,9 @@ ob_start();
                     <td>' . $project . '</td>
                     <td>
                         <form action="" method="post">                       
-                        <input type = "hidden" name="id" value=' . $id . ' hidden >
-                            <a class= "btn" href="?action=edit&id='  . $id . '&path='.$_GET['path'].'">Edit</a>
-                            <a class = "btn" href="?action=delete&id='  . $id . '&path='.$_GET['path'].'">Delete</a>
+                        <input class = "table-btn" type = "hidden" name="id" value=' . $id . ' hidden >
+                            <a class="update-btn" href="?action=edit&id='  . $id . '&path='.$_GET['path'].'">Edit</a>
+                            <a class= "del-btn"href="?action=delete&id='  . $id . '&path='.$_GET['path'].'">Delete</a>
                         </form>
                     </td>
                 </tr>
