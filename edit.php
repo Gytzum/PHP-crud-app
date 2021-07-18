@@ -16,6 +16,7 @@
     $path = $_GET['path'];
     $tableName = $path == '' || $path == 'employees' ?  'employees' : 'projects';
     $getPlaceholder = "SELECT name from " . $tableName . " WHERE id LIKE ?";
+    
     $stmt = $conn->prepare($getPlaceholder);
     $stmt->bind_param('i', $_GET['id']);
     $res = $stmt->execute();
@@ -43,7 +44,7 @@
         echo '</select>';
         echo '<button class="btn-dark" style="cursor: pointer; width:200px; height:50px;" class= "edit-btn" type="submit">Assign</button>';
     }
-    echo ' </form></div>';
+        echo ' </form></div>';
     ?>
 
     <?php
