@@ -27,6 +27,13 @@ ob_start();
                 </ul>
             </nav>
         </header>
+        <div style=" margin-top: 30px; margin-bottom: 30px">
+            <form action="" method="post">
+                <label for="name" style="font-size: 30px;">Create new <?php echo substr_replace($_GET['path'], "", -1) ?></label> </br>
+                <input type="text" type="text" style="width:300px; height:50px; font-size: 25px" placeholder="Enter name" name="create">
+                <button class="btn-dark" style="cursor: pointer; width:200px; height:50px;" type="submit">Submit</button>
+            </form>
+        </div>
         <table class="table table-bordered">
             <thead class="table-dark ">
                 <tr>
@@ -37,6 +44,7 @@ ob_start();
                 </tr>
             </thead>
             <?php
+            $tableName = $_GET['path'] == '' || $_GET['path'] == 'employees' ?  'employees' : 'projects';
             $title = $_GET['path'];
             if ($title == '' || $title == 'employees') {
                 $stmt = $conn->prepare("SELECT id, name from employees WHERE id LIKE ?");
@@ -68,8 +76,8 @@ ob_start();
                     <td>
                         <form action="" method="post">                       
                         <input class = "table-btn" type = "hidden" name="id" value=' . $id . ' hidden >
-                            <a class="update-btn" href="?action=edit&id='  . $id . '&path='.$_GET['path'].'">Edit</a>
-                            <a class= "del-btn"href="?action=delete&id='  . $id . '&path='.$_GET['path'].'">Delete</a>
+                            <a class="update-btn" href="?action=edit&id='  . $id . '&path=' . $_GET['path'] . '">Edit</a>
+                            <a class= "del-btn"href="?action=delete&id='  . $id . '&path=' . $_GET['path'] . '">Delete</a>
                         </form>
                     </td>
                 </tr>
@@ -79,12 +87,16 @@ ob_start();
             ?>
         </table>
     </div>
+
     <?php
     if (isset($_GET['action']) and $_GET['action'] === 'delete') {
         require 'delete.php';
     }
     if (isset($_GET['action']) and $_GET['action'] === 'edit') {
         require 'edit.php';
+    }
+    if (isset($_POST['create']) and !empty($_POST['create'])) {
+        require 'create.php';
     }
 
     ?>

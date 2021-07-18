@@ -1,7 +1,4 @@
-<?php
-include_once('database-connection.php');
-ob_start();
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,8 +22,8 @@ ob_start();
     $stmt->bind_result($name);
     while ($stmt->fetch()) {
         echo
-        '<form style="margin-left: 11%"action="" method="post">
-            <p style = "font-size:25px">Change ' . substr_replace($path, "", -1) . ' name</p>
+        '<div style="display: flex; width:100%;"><form style="margin-left: 11%"action="" method="post">
+            <p style = "font-size:30px">Change ' . substr_replace($path, "", -1) . ' name</p>
             <input type = "text" style="width:300px; height:50px; font-size: 25px" name="name" placeholder="' . $name . '">
             <button class="btn-dark" style="cursor: pointer; width:200px; height:50px;" class= "edit-btn" type="submit">Submit</button>
         </form>';
@@ -38,7 +35,7 @@ ob_start();
 
         echo '
             <form action="" method = "post">
-                <label style = "font-size:25px; margin-left: 11%; margin-top: 30px" for="assign">Choose project to assign employee</label></br>
+                <label style = "font-size:30px; margin-left: 11%;" for="assign">Choose project to assign employee</label>
                     <select style="margin-left: 11%; width:300px; height:50px" name="assign">';
         while ($stmt->fetch()) {
             echo '<option  value="' . $option . '">' . $option . '</option>';
@@ -46,7 +43,7 @@ ob_start();
         echo '</select>';
         echo '<button class="btn-dark" style="cursor: pointer; width:200px; height:50px;" class= "edit-btn" type="submit">Assign</button>';
     }
-    echo ' </form>';
+    echo ' </form></div>';
     ?>
 
     <?php
