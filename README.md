@@ -17,6 +17,7 @@
 * AMPPS or XAMMP
 
 ## Installation
+* Clone the repository
 * Create MySQL Connection with following information :
     * servername -> localhost  
     * username -> root  
@@ -26,7 +27,7 @@
 * Follow steps bellow : 
 ```sql
 /*! 1 Step */
-CREATE DATABASE  IF NOT EXISTS `crud_app`
+CREATE DATABASE  IF NOT EXISTS `crud_app`;
 USE `crud_app`;
 
 /*! 2 Step */
