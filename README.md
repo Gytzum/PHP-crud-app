@@ -17,12 +17,12 @@
 * AMPPS or XAMMP
 
 ## Installation
-* Clone the repository
+* Clone repository to AMPPS or XAMPPS root folder 
 * Create MySQL Connection with following information :
     * servername -> localhost  
     * username -> root  
     * password -> mysql  
-* Import SQL_dump.sql into your MySQL Workbench     
+* Import SQL_dump.sql into MySQL Workbench     
   * or  
 * Follow steps bellow : 
 ```sql
@@ -53,7 +53,6 @@ CREATE TABLE `projects` (
 /*! 5 Step */
 INSERT INTO `projects` VALUES (6,'New York Subway System'),(7,'THE BIG DIG'),(8,'Three Gorges Dam'),(9,'International Space Station');
 ```
-* Clone it to AMPPS or XAMPPS root folder and start through http://localhost/
 * Open the path where you can launch php interpreter, e.g. http//localhost/browser
 
 
