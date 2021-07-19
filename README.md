@@ -6,10 +6,10 @@
 ## This is my second project built in PHP
 
 ## CRUD APP features
-* See the employees and projects they are assign to
+* See the projects and employees on the table
 * Add new records
 * Delete records
-* Edit button that allows change name and assign project
+* Edit button that allows change name and assign employees to project
 
 ## Requirements For Installation
 * Integrated development environment (IDE) application
