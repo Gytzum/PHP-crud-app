@@ -8,7 +8,7 @@
 ## CRUD APP features
 * See the projects and employees on the data table
 * Add new records
-* Delete records
+* Delete records (Deleting project, employees assigned to that project are deleted too, projects can exist without employees)
 * Edit button that allows change name and assign employees to project
 
 ## Requirements For Installation
