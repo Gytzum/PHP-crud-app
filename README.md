@@ -6,7 +6,7 @@
 ## This is my second project built in PHP
 
 ## CRUD APP features
-* See the projects and employees on the table
+* See the projects and employees on the data table
 * Add new records
 * Delete records
 * Edit button that allows change name and assign employees to project
