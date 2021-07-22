@@ -11,7 +11,6 @@
     <title>CRUD App</title>
 </head>
 
-<body>
     <?php
     $tableName = $_GET['path'] == '' || $_GET['path'] == 'employees' ?  'employees' : 'projects';
     $title = $_GET['path'];
@@ -83,6 +82,5 @@
             ?>
         </table>
     </div>
-</body>
 
 </html>
